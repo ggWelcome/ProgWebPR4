@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Smart Grid API",
+    "version": "1.0.0",
+    "description": "API для системи розподілу електроенергії (Smart Grid)."
+  },
+  "paths": {
+    "/generators": {
+      "get": {
+        "summary": "Отримати всі генератори",
+        "responses": {
+          "200": {
+            "description": "Список генераторів",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Generator" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Створити генератор",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Generator" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Генератор створено",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Generator" }
+              }
+            }
+          },
+          "400": { "description": "Некоректні дані" }
+        }
+      },
+      "delete": {
+        "summary": "Видалити генератор",
+        "parameters": [
+          { "name": "id", "in": "query", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Генератор видалено" },
+          "404": { "description": "Не знайдено" }
+        }
+      }
+    },
+    "/consumers": {
+      "get": {
+        "summary": "Отримати всіх споживачів",
+        "responses": {
+          "200": {
+            "description": "Список споживачів",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Consumer" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Створити споживача",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Consumer" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Споживач створено",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Consumer" }
+              }
+            }
+          },
+          "400": { "description": "Некоректні дані" }
+        }
+      },
+      "delete": {
+        "summary": "Видалити споживача",
+        "parameters": [
+          { "name": "id", "in": "query", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Споживач видалено" },
+          "404": { "description": "Не знайдено" }
+        }
+      }
+    },
+    "/sensors": {
+      "get": {
+        "summary": "Отримати всі датчики",
+        "responses": {
+          "200": {
+            "description": "Список датчиків",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Sensor" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Створити датчик",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Sensor" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Датчик створено",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Sensor" }
+              }
+            }
+          },
+          "400": { "description": "Некоректні дані" }
+        }
+      },
+      "delete": {
+        "summary": "Видалити датчик",
+        "parameters": [
+          { "name": "id", "in": "query", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "204": { "description": "Датчик видалено" },
+          "404": { "description": "Не знайдено" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Generator": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "name": { "type": "string", "example": "Solar Plant" },
+          "power": { "type": "integer", "example": 500 },
+          "status": { "type": "string", "example": "active" }
+        }
+      },
+      "Consumer": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "name": { "type": "string", "example": "Factory A" },
+          "load": { "type": "integer", "example": 300 },
+          "status": { "type": "string", "example": "connected" }
+        }
+      },
+      "Sensor": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "type": { "type": "string", "example": "temperature" },
+          "value": { "type": "integer", "example": 25 },
+          "unit": { "type": "string", "example": "C" }
+        }
+      }
+    }
+  }
+}
